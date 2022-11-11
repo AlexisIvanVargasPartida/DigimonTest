@@ -1,0 +1,30 @@
+@import '~antd/dist/antd.css';
+.App {
+ margin-top: 3rem;
+}
+.ant-col-4{
+  padding-bottom: 3rem;
+}
+.ant-card-bordered{
+  border: none;
+}
+.ant-card-head {
+  background-color:#D9514EFF;
+  border-radius: .5rem;
+}
+.ant-card-cover {
+  background-color: #2A2B2DFF;
+  border-radius: 1rem;
+}
+.ant-card-body{
+  background-color: #2DA8D8FF;
+  position:"absolute";
+  border-radius: 0.75rem;
+  bottom: 20;
+}
+
+.ant-card-head-title{
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: 2rem;
+  text-align: center;
+}
