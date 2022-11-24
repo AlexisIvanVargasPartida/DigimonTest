@@ -1,24 +1,24 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { setLoading } from "./uiSlice";
-import { getPokemon, getPokemonDetails } from "../api";
+import { getDigimon } from "../api";
 const initialState = {
-  pokemons: [],
-  pokemonsFiltered: [],
+  digimons: [],
+  digimonsFiltered: [],
 };
 
-export const fetchPokemonWithDetails = createAsyncThunk(
-  "data/fetchPokemonWithDetails",
+export const fetchDigimonWithDetails = createAsyncThunk(
+  "data/fetchDigimonWithDetails",
   async (_, { dispatch }) => {
     //dispatch loader
     //fetch
     //dispatch del loader
     dispatch(setLoading(true));
 
-    const pokemonsRes = await getPokemon();
-    const pokemonsDetailed = await Promise.all(
-      pokemonsRes.map((pokemon) => getPokemonDetails(pokemon))
-    );
-    dispatch(setPokemons(pokemonsDetailed));
+    const sweetArray = await getDigimon();
+    const sweeterArray = await Promise.all(sweetArray.map((sweetItem) => {
+      return sweetItem;
+    }));
+    dispatch(setDigimons(sweeterArray));
     dispatch(setLoading(false));
   }
 );
@@ -27,31 +27,20 @@ export const dataSlice = createSlice({
   name: "data",
   initialState,
   reducers: {
-    setPokemons: (state, action) => {
-      state.pokemons = action.payload;
-      state.pokemonsFiltered = action.payload;
+    setDigimons: (state, action) => {
+      state.digimons = action.payload;
+      state.digimonsFiltered = action.payload;
     },
 
-    setFavorite: (state, action) => {
-      const currentPokemonIndex = state.pokemonsFiltered.findIndex(
-        (pokemon) => pokemon.id === action.payload.pokemonId
-      );
-
-      if (currentPokemonIndex >= 0) {
-        const isFavorite = state.pokemonsFiltered[currentPokemonIndex].favorite;
-
-        state.pokemonsFiltered[currentPokemonIndex].favorite = !isFavorite;
-      }
-    },
     setFilter: (state, action) => {
-      const pokemonsFiltered = state.pokemons.filter((pokemon) =>
-        pokemon.name.includes(action.payload)
+      const digimonsFiltered = state.digimons.filter((digimon) =>
+        digimon.name.includes(action.payload)
       );
-      state.pokemonsFiltered = pokemonsFiltered;
+      state.digimonsFiltered = digimonsFiltered;
     },
   },
 });
 
-export const { setFavorite, setPokemons,setFilter } = dataSlice.actions;
+export const { setDigimons, setFilter } = dataSlice.actions;
 
 export default dataSlice.reducer;

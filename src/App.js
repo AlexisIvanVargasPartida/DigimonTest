@@ -1,17 +1,17 @@
 import { useEffect } from "react";
 import { Col, Spin } from "antd";
-import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import { shallowEqual,useDispatch,useSelector } from "react-redux";
+import { fetchDigimonWithDetails } from "./slices/dataSlice";
 import Searcher from "./components/Searcher";
-import PokemonList from "./components/PokemonList";
-import { fetchPokemonWithDetails } from "./slices/dataSlice";
+import DigimonList from "./components/DigimonList";
 import logo from "./statics/logo.svg";
 import "./App.css";
 
 function App() {
-  const pokemons = useSelector(
+  const digimons = useSelector(
     (state) =>
-      // getIn(state, ["data", "pokemons"], shallowEqual)
-      state.data.pokemonsFiltered,
+      // getIn(state, ["data", "digimons"], shallowEqual)
+      state.data.digimonsFiltered,
     shallowEqual
   );
 
@@ -21,9 +21,8 @@ function App() {
       state.ui.loading
   );
   const dispatch = useDispatch();
-
   useEffect(() => {
-    dispatch(fetchPokemonWithDetails());
+    dispatch(fetchDigimonWithDetails());
   }, []);
 
   return (
@@ -39,7 +38,7 @@ function App() {
           <Spin spinning size="large" />
         </Col>
       ) : (
-        <PokemonList pokemons={pokemons} />
+        <DigimonList digimons={digimons} />
       )}
     </div>
   );
